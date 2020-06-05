@@ -4,7 +4,7 @@ use glib::translate::*;
 use libc::c_char;
 use std::ffi::{CStr, CString};
 
-use enums::{FontSlant, FontType, FontWeight, FtSynthesize, Status};
+use enums::{FontSlant, FontType, FontWeight, Status};
 
 #[cfg(feature = "use_glib")]
 glib_wrapper! {
@@ -91,18 +91,6 @@ impl FontFace {
 
     pub fn get_reference_count(&self) -> usize {
         unsafe { ffi::cairo_font_face_get_reference_count(self.to_raw_none()) as usize }
-    }
-
-    pub fn get_synthesize(&self) -> FtSynthesize {
-        unsafe { FtSynthesize::from(ffi::cairo_ft_font_face_get_synthesize(self.to_raw_none())) }
-    }
-
-    pub fn set_synthesize(&self, synth_flags: FtSynthesize) {
-        unsafe { ffi::cairo_ft_font_face_set_synthesize(self.to_raw_none(), synth_flags.into()) }
-    }
-
-    pub fn unset_synthesize(&self, synth_flags: FtSynthesize) {
-        unsafe { ffi::cairo_ft_font_face_unset_synthesize(self.to_raw_none(), synth_flags.into()) }
     }
 
     user_data_methods! {
